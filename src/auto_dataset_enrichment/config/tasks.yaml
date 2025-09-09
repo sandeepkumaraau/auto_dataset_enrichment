@@ -1,0 +1,20 @@
+url_discovery_task:
+  description: >
+    Analyze the market question:  {market question} and {description}. Your mission is to generate a list of unique and specific search queries related to this topic. Each query MUST be under 400 characters.
+
+    After gathering all search results, analyze them based on their relevance 'score'. Identify the top 10 URLs with the highest scores from across all your searches.
+
+    Finally, compile these 10 URLs into a markdown report.
+  expected_output: >
+    A  list of the top 10 most relevant URLs discovered during the search process.
+  agent: search_strategist
+
+extract_structured_articles_task:
+  description: >
+    For each given URL, extract a rich set of fields including headline, date, author, summary, main text, named entities,
+    key events, implied probabilities, market mentions, causal statements, and (for Wikipedia) edit info.
+    Use LLM extraction as the main method. Use selectors as backup for basic fields.
+  expected_output: >
+    A list of JSON objects, each with the full schema as described, one per URL.
+  agent: structured_extractor
+
