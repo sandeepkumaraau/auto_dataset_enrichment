@@ -1,27 +1,44 @@
 # AutoDatasetEnrichment 
 
-Welcome to the AutoDatasetEnrichment project, This project is indetend to show how to turn raw market data from Polymarket API, that had no prior publicly available dataset into a AI/ML redy dataset  Then using AI agents by providing them the market info to find more information about the market,so that i can train an AI agent to do sentiment analysis and market analysis to help optimize trading/decision strategy.
+**Turning raw Polymarket data into AI/ML-ready datasets using automated multi-agent pipelines.**  
 
-## Polymarket Dataset collection pipeline
+This project demonstrates how to:  
+1. Collect raw market data from the **Polymarket GAMMA API**, where no public dataset previously existed.  
+2. Transform it into a **machine-learning-ready dataset** with financial features.  
+3. Use **AI agents** to automatically discover and extract relevant external information about each market.  
+4. Enable downstream **ML tasks such as sentiment analysis, market analysis, and decision optimization**.  
 
-This part is about the custom pipeline to collect raw market data from Polymarket GAMMA API, the data collected is:
-1. Genral market information 
-2. Hourly market price data 
-3. Market volume and liqudity
-4. Trades for each day 
-5. Number of holders and thier postions 
-6. Order book for each day of the market
+---
 
-Then using them to create additional finical scoring features for each market into the dataset.
-The complete dataset is available on [kaggle](https://www.kaggle.com/datasets/sandeepkumarfromin/full-market-data-from-polymarket/data).
+## 📊 Polymarket Dataset Collection Pipeline  
 
-## Automated relevance discovery
+A custom pipeline gathers comprehensive raw market data, including:  
 
-This part is about creation of 'search_strategist Agent' using [crewai](https://github.com/crewAIInc/crewAI) to taken as input "market_question" ,"market_description" and use tools like [tavily search](https://github.com/tavily-ai/tavily-python) to automatically genrate the most relevent queries about the market to search for and do relevence scoring by checking Source credibility,Direct Relevance,Timeline check,Data-Driven Analysis to  rank the most relevent website for each market, leveraging the search  results snippts to ensure high-quality sources and then output top 10 website to be scraped.
+1. General market information  
+2. Hourly market price data  
+3. Market volume and liquidity  
+4. Daily trades  
+5. Number of holders and their positions  
+6. Daily order books  
 
-1. The [Agent](src/auto_dataset_enrichment/config/agents.yaml) used is the 'search_strategist'.
-2. The [Task](src/auto_dataset_enrichment/config/tasks.yaml) given is the 'url_discovery_task'.
-3. The [Tool](src/auto_dataset_enrichment/tools/tavily_search.py) is used by the Agent.
+From this, additional **financial scoring features** are engineered for each market.  
+
+➡️ The complete dataset is available on **[Kaggle](https://www.kaggle.com/datasets/sandeepkumarfromin/full-market-data-from-polymarket/data)**.  
+
+---
+
+## 🔎 Automated Relevance Discovery  
+
+A **Search Strategist Agent** (powered by [crewAI](https://github.com/crewAIInc/crewAI)) takes as input a `market_question` and `market_description`, then:  
+
+- Generates optimized queries using [Tavily Search](https://github.com/tavily-ai/tavily-python).  
+- Scores results by **source credibility, direct relevance, timeline, and data quality**.  
+- Ranks and outputs the **Top 10 high-quality URLs** for each market.  
+
+📌 Config details:  
+- Agent: [`search_strategist`](src/auto_dataset_enrichment/config/agents.yaml)  
+- Task: [`url_discovery_task`](src/auto_dataset_enrichment/config/tasks.yaml)  
+- Tool: [`tavily_search.py`](src/auto_dataset_enrichment/tools/tavily_search.py)  
    
 ## Example Output
 
@@ -54,12 +71,20 @@ This part is about creation of 'search_strategist Agent' using [crewai](https://
 ╰──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────╯
 
 ```
-## Agent Driven data extraction
-This part is about creation of 'structured extractor agent' that takes as input top 10 websites from the 'search_strategist' and uses WebsiteSearchTool from the crewai_tools library, configured to use Google's Gemini model for conducting semantic searches within the content of websites using Retrieval-Augmented Generation (RAG) to navigate and extract information from specified URLs efficiently. Then the Agent extract a rich set of fields including headline, date, author, summary, main text, named entities,key events, implied probabilities, market mentions, causal statements, and (for Wikipedia) edit info and return a list of json objects,each with full schema, one per url.
+## 📑 Agent-Driven Data Extraction
+A Structured Extractor Agent takes the top URLs from the Search Strategist and:
 
-1. The [Agent](src/auto_dataset_enrichment/config/agents.yaml) used is the 'structured_extractor'.
-2. The [Task](src/auto_dataset_enrichment/config/tasks.yaml) given is the 'extract_structured_articles_task'.
-3. The [Tool](src/auto_dataset_enrichment/tools/rag_extract.py) is used by the Agent.
+- Uses the WebsiteSearchTool + Google’s Gemini (via RAG) to extract structured insights.  
+- Returns a rich JSON schema per article, including:
+    -**Headline, date, author, summary, main text**
+    -**Named entities, key events**
+    -**Market mentions, causal statements, Wikipedia edit info**  
+ 
+
+📌 Config details:  
+- Agent: [`structured_extractor`](src/auto_dataset_enrichment/config/agents.yaml)  
+- Task: [`extract_structured_articles_task`](src/auto_dataset_enrichment/config/tasks.yaml)  
+- Tool: [`rag_extract.py`](src/auto_dataset_enrichment/tools/tavily_search.py)  
 
 ## Example Output
 
