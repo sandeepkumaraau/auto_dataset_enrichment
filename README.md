@@ -120,6 +120,11 @@ A **Structured Extractor Agent** takes the `top URLs` from the `Search Strategis
 ╰────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────╯
 ```
 
+## Future Work
+
+- Add sentiment analysis module for enriched market datasets.
+- Build predictive ML models for price forecasting and strategy optimization.
+- Extend pipeline to other market APIs beyond Polymarket.
 
 
 
