@@ -72,13 +72,13 @@ A **Search Strategist Agent** (powered by [crewAI](https://github.com/crewAIInc/
 
 ```
 ## 📑 Agent-Driven Data Extraction
-A Structured Extractor Agent takes the top URLs from the Search Strategist and:
+A **Structured Extractor Agent** takes the `top URLs` from the `Search Strategist` and:
 
-- Uses the WebsiteSearchTool + Google’s Gemini (via RAG) to extract structured insights.  
+- Uses the **WebsiteSearchTool + Google’s Gemini (via RAG)** to extract structured insights.  
 - Returns a rich JSON schema per article, including:
-    -**Headline, date, author, summary, main text**
-    -**Named entities, key events**
-    -**Market mentions, causal statements, Wikipedia edit info**  
+    - **Headline, date, author, summary, main text**
+    - **Named entities, key events**
+    - **Market mentions, causal statements, Wikipedia edit info**  
  
 
 📌 Config details:  
