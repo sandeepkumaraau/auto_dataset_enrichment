@@ -23,6 +23,15 @@ A custom pipeline gathers comprehensive raw market data, including:
 
 From this, additional **financial scoring features** are engineered for each market.  
 
+### 📅 Dataset Time Range
+
+The dataset included in this repository (`polymarket_final_dataset.csv.zip`) contains historical data spanning approximately **1.5 years**:
+
+- **Start Date**: January 3, 2024  
+- **End Date**: July 23, 2025  
+
+The ingestion pipeline uses `start_date_max="2025-01-01T00:00:00Z"` to fetch markets that started before 2025, ensuring comprehensive historical coverage.
+
 ➡️ The complete dataset is available on **[Kaggle](https://www.kaggle.com/datasets/sandeepkumarfromin/full-market-data-from-polymarket/data)**.  
 
 ---
